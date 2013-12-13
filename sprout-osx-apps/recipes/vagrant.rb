@@ -1,12 +1,7 @@
 include_recipe "sprout-osx-apps::virtualbox"
 
-dmg_properties = node['sprout']['vagrant']['dmg']
+app_path = "/usr/bin/vagrant"
 
-dmg_package "Vagrant" do
-  source   dmg_properties['source']
-  checksum dmg_properties['checksum']
-  action :install
-  type "pkg"
-  owner node['current_user']
-  package_id "com.vagrant.vagrant"
+unless File.exists?(app_path)
+  sprout_osx_apps_homebrew_cask "vagrant"
 end
